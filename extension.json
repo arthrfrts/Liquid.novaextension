@@ -1,8 +1,13 @@
 {
-    "identifier": "me.arthr.Liquid",
-    "name": "Liquid",
-    "organization": "arthr",
-    "description": "Lorem ipsum, dolor sit amet.",
-    "version": "1.0",
-    "categories": ["languages"]
+  "identifier": "me.arthr.Liquid",
+  "name": "Liquid",
+  "organization": "arthr",
+  "description": "Syntax highlighting and completions for Liquid template files.",
+  "version": "1.0",
+  "license": "MIT",
+  "bugs": "https://github.com/arthrfrts/Liquid.novaextension/issues",
+  "repository": "https://github.com/arthrfrts/Liquid.novaextension",
+  "keywords": ["liquid", "jekyll", "shopify", "html", "templates", "syntax"],
+  "categories": ["languages"],
+  "activationEvents": ["onLanguage:liquid"]
 }
