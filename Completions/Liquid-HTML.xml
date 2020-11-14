@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<completions>
+	<!-- Basic completions outside {% -->
+	<provider>
+		<syntax>liquid</syntax>
+		<selector>*:not(tag,comment)</selector>
+		<expression>([a-zA-Z]*)</expression>
+		<set>liquid.basics</set>
+	</provider>
+	
+	<!-- Full tags for basic completions -->
+	<set name="liquid.basics">
+		<!-- Default: auto complete {% … %} -->
+		<behavior>
+			<prepend>{% </prepend>
+			<append> %}</append>
+		</behavior>
+		<!-- Regular Liquid -->
+		<completion string="assign">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[variable] = $[content] %}</append>
+			</behavior>
+		</completion>
+		<completion string="increment">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[variable] %}</append>
+			</behavior>
+		</completion>
+		<completion string="decrement">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[variable] %}</append>
+			</behavior>
+		</completion>
+		<completion string="capture">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[variable] %}$[…]{% endcapture %}</append>
+			</behavior>
+		</completion>
+		<completion string="capture">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[conditions] %}</append>
+			</behavior>
+		</completion>
+		<completion string="continue" />
+		<completion string="break" />
+		<completion string="else" />
+		<completion string="elseif" />
+		<completion string="endcapture" />
+		<completion string="endfor" />
+		<completion string="endif" />
+		<completion string="endunless" />
+		<completion string="endtablerow" />
+		<completion string="endraw" />
+		<completion string="endhighlight" />
+		<completion string="for">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[a] in $[b] $[params] %}$[…]{% endfor %}</append>
+			</behavior>
+		</completion>
+		<completion string="tablerow">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[a] in $[b] $[params] %}$[…]{% endfor %}</append>
+			</behavior>
+		</completion>
+		<completion string="if">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[condition] %}$[…]{% endif %}</append>
+			</behavior>
+		</completion>
+		<completion string="case">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[condition] %}$[…]{% endcase %}</append>
+			</behavior>
+		</completion>
+		<completion string="when">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[condition] %}</append>
+			</behavior>
+		</completion>
+		<completion string="unless">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[condition] %}$[…]{% endunless %}</append>
+			</behavior>
+		</completion>
+		<completion string="elsif">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[condition] %}</append>
+			</behavior>
+		</completion>
+		<completion string="include">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[file] %}</append>
+			</behavior>
+		</completion>
+		<completion string="include">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[file] with $[variable] %}</append>
+			</behavior>
+		</completion>
+		<completion string="render">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> $[file] with $[variable] %}</append>
+			</behavior>
+		</completion>
+	</set>
+</completions>

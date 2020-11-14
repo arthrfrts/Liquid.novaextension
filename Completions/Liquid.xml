@@ -1,17 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <completions>
-    <provider>
-        <selector>mylang</selector>
-        <expression>\b[a-zA-Z0-9-_]*</expression>
-        <set>mylang.entities</set>
-    </provider>
-    
-    <!-- Entities -->
-    <set name="mylang.entities">
-        <completion string="&quot;" />
-        <completion string="&amp;" />
-        <completion string="&apos;" />
-        <completion string="&lt;" />
-        <completion string="&gt;" />
-    </set>
+	<!-- Tags directly after "{% " -->
+	<provider>
+		<syntax>liquid-base</syntax>
+		<selector>*:not(string,comment)</selector>
+		<expression>(?&lt;=\{%\s)([a-zA-Z]*)</expression>
+		<set>liquid.tags</set>
+	</provider>
+	
+	<!-- Tests after "is" -->
+	<provider>
+		<syntax>liquid-base</syntax>
+		<selector>*:not(string,comment)</selector>
+		<expression>(?&lt;=is\s)([a-zA-Z]*)</expression>
+		<set>liquid.tests</set>
+	</provider>
+
+	<!-- Filters after "|" -->
+	<provider>
+		<syntax>liquid-base</syntax>
+		<selector>*:not(string,comment)</selector>
+		<expression>(?&lt;=\|\s*)([a-zA-Z]*)</expression>
+		<set>liquid.filters</set>
+	</provider>
+	
+	<!-- Anything else after space, but not behind "is", "apply" or directly behind "{%" -->
+	<provider>
+		<syntax>liquid-base</syntax>
+		<selector>*:not(string, comment)</selector>
+		<expression>(?&lt;!\{%\s|\S)([a-zA-Z]*)</expression>
+		<symbols type="variable" />
+		<symbols type="function">
+			<behavior>
+				<arguments prefix="(" suffix=")" separator=", " />
+			</behavior>
+		</symbols>
+		<set>liquid.functions</set>
+		<set>liquid.keywords</set>
+		<set>liquid.globals</set>
+	</provider>
+	
+	<!-- After regular opening brackets -->
+	<provider>
+		<syntax>liquid-base</syntax>
+		<selector>*:not(string, comment)</selector>
+		<expression>(?&lt;=\()([a-zA-Z]*)</expression>
+		<symbols type="variable" />
+		<symbols type="function">
+			<behavior>
+				<arguments prefix="(" suffix=")" separator=", " />
+			</behavior>
+		</symbols>
+		<set>liquid.globals</set>
+	</provider>
+	
+	<!-- Tags -->
+	<set name="liquid.tags">
+		<!-- Default: auto complete %} at the end -->
+		<behavior suffix="\}">
+			<append> %</append>
+		</behavior>
+		<behavior suffix="%\}">
+			<append> </append>
+		</behavior>
+		<behavior suffix="(\s*%\})">
+			<append></append>
+		</behavior>
+		<behavior>
+			<append> %}</append>
+		</behavior>
+		<!-- Regular Twig -->
+		<completion string="assign">
+			<behavior suffix="\}">
+				<append> $[variable] = $[content] %</append>
+			</behavior>
+			<behavior suffix="%\}">
+				<append> $[variable] = $[content] </append>
+			</behavior>
+			<behavior suffix="(\s*%\})">
+				<append> $[variable] = $[content]</append>
+			</behavior>
+			<behavior>
+				<append> $[variable] = $[content] %}</append>
+			</behavior>
+		</completion>
+		<completion string="capture">
+			<behavior suffix="\}">
+				<append> $[variable] %}$[…]{% endcapture %</append>
+			</behavior>
+			<behavior suffix="%\}">
+				<append> $[variable] %}$[…]{% endcapture </append>
+			</behavior>
+			<behavior suffix="(\s*%\})">
+				<append> $[variable] %}$[…]{% endcapture</append>
+			</behavior>
+			<behavior>
+				<append> $[variable] %}$[…]{% endcapture %}</append>
+			</behavior>
+		</completion>
+	</set>
+	
+	<!-- Keywords -->
+	<set name="liquid.keywords">
+		<completion string="not" />
+		<completion string="as" />
+		<completion string="in" />
+		<completion string="is" />
+		<completion string="with">
+			<behavior>
+				<append> $[name] as $[variable]</append>
+			</behavior>
+		</completion>
+		<completion string="with">
+			<behavior>
+				<append> {$[data]}</append>
+			</behavior>
+		</completion>
+		<completion string="break">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> %}</append>
+			</behavior>
+		</completion>
+		<completion string="continue">
+			<behavior>
+				<prepend>{% </prepend>
+				<append> %}</append>
+			</behavior>
+		</completion>
+	</set>
+	
+	<!-- Globals -->
+	<set name="liquid.globals">
+		<!-- Regular Twig -->
+		<completion string="now" />
+	</set>
+	
+	<!-- Tests -->
+	<set name="liquid.tests">
+		<!-- Regular Twig -->
+	</set>
+
+	<!-- Filters -->
+	<set name="liquid.filters">
+		<completion string="abs" />
+	</set>
 </completions>
