@@ -69,7 +69,7 @@
 		<behavior>
 			<append> %}</append>
 		</behavior>
-		<!-- Regular Twig -->
+		<!-- Regular Liquid -->
 		<completion string="assign">
 			<behavior suffix="\}">
 				<append> $[variable] = $[content] %</append>
@@ -113,7 +113,7 @@
 		</completion>
 		<completion string="with">
 			<behavior>
-				<append> {$[data]}</append>
+				<append> $[variable]</append>
 			</behavior>
 		</completion>
 		<completion string="break">

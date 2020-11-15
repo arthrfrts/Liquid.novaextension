@@ -1,7 +1,7 @@
 <!-- <?xml version="1.0" encoding="UTF-8"?> -->
 <syntax name="liquid">
 	<meta>
-		<name>Liquid HTML</name>
+		<name>HTML (Liquid)</name>
 		<type>markup</type>
 		<preferred-file-extension>liquid</preferred-file-extension>
 		<parent>html</parent>
@@ -52,14 +52,27 @@
 		<pair open="&quot;" close="&quot;" />
 		<pair open="`" close="`" />
 	</surrounding-pairs>
+	
+	<scopes spell-check="true" lookup="dictionary">
+		<scope name="liquid.yaml.block" spell-check="true">
+			<starts-with>
+				<expression>---</expression>
+			</starts-with>
+			<ends-with>
+				<expression>---</expression>
+			</ends-with>
+		</scope>
 
+		<include syntax="yaml" />
+	</scopes>
+	
 	<scopes spell-check="true" lookup="dictionary">
 		<scope name="liquid.comment.block" spell-check="true">
 			<starts-with>
-				<expression>\{\%\s*comment\s*\%\}</expression>
+				<expression>\{\%-?\s*comment\s*-?\%\}</expression>
 			</starts-with>
 			<ends-with>
-				<expression>\{\%\s*endcomment\s*\%\}</expression>
+				<expression>\{\%-?\s*endcomment\s*-?\%\}</expression>
 			</ends-with>
 		</scope>
 
@@ -72,11 +85,11 @@
 				<context behavior="subtree" group-by-name="true" />
 			</symbol>
 			<starts-with>
-				<expression>\{\{</expression>
+				<expression>\{\{-?</expression>
 				<capture number="0" name="liquid.tag.framework.variable.start" />
 			</starts-with>
 			<ends-with>
-				<expression>\}\}</expression>
+				<expression>-?\}\}</expression>
 				<capture number="0" name="liquid.tag.framework.variable.end" />
 			</ends-with>
 			<subsyntax name="liquid-base" noncontiguous="true" export-symbols="true">
@@ -91,11 +104,11 @@
 				<context behavior="subtree" group-by-name="true" />
 			</symbol>
 			<starts-with>
-				<expression>\{\%</expression>
+				<expression>\{\%-?</expression>
 				<capture number="0" name="liquid.tag.framework.expression.start" />
 			</starts-with>
 			<ends-with>
-				<expression>\%\}</expression>
+				<expression>-?\%\}</expression>
 				<capture number="0" name="liquid.tag.framework.expression.end" />
 			</ends-with>
 			<subsyntax name="liquid-base" noncontiguous="true" export-symbols="true">

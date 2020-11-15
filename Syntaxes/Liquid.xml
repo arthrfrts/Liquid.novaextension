@@ -18,10 +18,10 @@
   <comments>
 		<multiline>
 			<starts-with>
-				<expression>{%\s*comment\s*%}</expression>
+				<expression>{% comment %}</expression>
 			</starts-with>
 			<ends-with>
-				<expression>{%\s*endcomment\s*%}</expression>
+				<expression>{% endcomment %}</expression>
 			</ends-with>
 		</multiline>
 	</comments>
@@ -79,6 +79,7 @@
 					<string>endraw</string>
 					<string>assign</string>
 					<string>capture</string>
+					<string>endcapture</string>
 					<string>increment</string>
 					<string>decrement</string>
 					<string>include</string>
@@ -214,13 +215,14 @@
 			<scope name="liquid.value.null">
 				<strings>
 					<string>nil</string>
+					<string>null</string>
+					<string>blank</string>
 				</strings>
 			</scope>
 			<scope name="liquid.value.boolean">
 				<strings>
 					<string>true</string>
 					<string>false</string>
-					<string>blank</string>
 				</strings>
 			</scope>
 			<scope name="liquid.value.number">

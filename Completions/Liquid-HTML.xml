@@ -40,12 +40,6 @@
 				<append> $[variable] %}$[…]{% endcapture %}</append>
 			</behavior>
 		</completion>
-		<completion string="capture">
-			<behavior>
-				<prepend>{% </prepend>
-				<append> $[conditions] %}</append>
-			</behavior>
-		</completion>
 		<completion string="continue" />
 		<completion string="break" />
 		<completion string="else" />
