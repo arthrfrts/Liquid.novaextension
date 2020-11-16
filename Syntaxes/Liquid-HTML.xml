@@ -80,6 +80,24 @@
 	</scopes>
 
 	<template-scopes>
+	<scope name="liquid.comment.block" spell-check="true">
+		<symbol type="tag-framework">
+			<context behavior="subtree" group-by-name="true" />
+		</symbol>
+		<starts-with>
+			<expression>\{\%-?\s*comment\s*-?\%\}</expression>
+			<capture number="0" name="liquid.comment.block.start" />
+		</starts-with>
+		<ends-with>
+			<expression>\{\%-?\s*endcomment\s*-?\%\}</expression>
+			<capture number="0" name="liquid.comment.block.end" />
+		</ends-with>
+		<!-- <subsyntax name="liquid-base" noncontiguous="true" export-symbols="true">
+			<cut-off>
+				<expression>(?=\%\})</expression>
+			</cut-off>
+		</subsyntax> -->
+	</scope>
 		<scope name="liquid.tag.framework" spell-check="false" lookup="index">
 			<symbol type="tag-framework">
 				<context behavior="subtree" group-by-name="true" />
