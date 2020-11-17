@@ -132,17 +132,14 @@
 	
 	<!-- Globals -->
 	<set name="liquid.globals">
-		<!-- Regular Twig -->
 		<completion string="now" />
 	</set>
 	
 	<!-- Tests -->
 	<set name="liquid.tests">
-		<!-- Regular Twig -->
 	</set>
 
 	<!-- Filters -->
 	<set name="liquid.filters">
-		<completion string="abs" />
 	</set>
 </completions>

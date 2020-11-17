@@ -1,8 +1,8 @@
 # Liquid.novaextension 🌊
 
-**Liquid** provides syntax highlighting and autocompletion for [Liquid templating markup](http://liquidmarkup.org).
+A [Nova](https://nova.app) extension that provides syntax highlighting and autocompletion for [Liquid template markup](http://liquidmarkup.org).
 
-![](https://nova.app/images/en/dark/editor.png)
+![](https://github.com/arthrfrts/Liquid.novaextension/blob/main/preview.png)
 
 ## Language Support 📚
 

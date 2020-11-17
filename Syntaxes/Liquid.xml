@@ -282,7 +282,7 @@
 			<scope name="liquid.operator">
 				<expression>(\+|\-|\*|\/|\%|\/\/|\*\*|\=|\~|\&amp;|\^|\=\=|\!\=|&lt;|&gt;|&gt;\=|&lt;\=|\.\.|\?|\?\:|\?\?|\:)</expression>
 			</scope>
-			<scope name="twig.comma">
+			<scope name="liquid.comma">
 				<expression>,</expression>
 			</scope>
 		</collection>
@@ -292,8 +292,8 @@
 			<scope name="liquid.definition.variable">
 				<symbol type="variable" scope="global" />
 				<expression>(?&lt;=set)\s+([a-zA-Z_][A-Za-zÀ-ÖØ-öø-ÿ0-9_]*)\s*(\=)</expression>
-				<capture number="1" name="twig.identifier.name" />
-				<capture number="2" name="twig.operator" />
+				<capture number="1" name="liquid.identifier.name" />
+				<capture number="2" name="liquid.operator" />
 			</scope>
 			<scope name="liquid.definition.function">
 				<symbol type="function" scope="global">

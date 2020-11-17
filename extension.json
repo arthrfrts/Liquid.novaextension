@@ -2,7 +2,7 @@
   "identifier": "me.arthr.Liquid",
   "name": "Liquid",
   "organization": "arthr",
-  "description": "Syntax highlighting and completions for Liquid template files.",
+  "description": "Syntax highlighting for Liquid template files.",
   "version": "1.0",
   "license": "MIT",
   "bugs": "https://github.com/arthrfrts/Liquid.novaextension/issues",
