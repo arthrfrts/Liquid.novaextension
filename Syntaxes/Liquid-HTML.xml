@@ -1,5 +1,5 @@
 <!-- <?xml version="1.0" encoding="UTF-8"?> -->
-<syntax name="liquid">
+<syntax name="liquid-html">
 	<meta>
 		<name>HTML (Liquid)</name>
 		<type>markup</type>
@@ -9,6 +9,7 @@
 
 	<detectors>
 		<extension priority="1.0">liquid</extension>
+		<extension priority="2.0">html</extension>
 	</detectors>
 
 	<indentation>
@@ -54,20 +55,7 @@
 	</surrounding-pairs>
 	
 	<scopes spell-check="true" lookup="dictionary">
-		<scope name="liquid.yaml.block" spell-check="true">
-			<starts-with>
-				<expression>---</expression>
-			</starts-with>
-			<ends-with>
-				<expression>---</expression>
-			</ends-with>
-		</scope>
-
-		<include syntax="yaml" />
-	</scopes>
-	
-	<scopes spell-check="true" lookup="dictionary">
-		<scope name="liquid.comment.block" spell-check="true">
+		<scope name="liquid-html.comment.block" spell-check="true">
 			<starts-with>
 				<expression>\{\%-?\s*comment\s*-?\%\}</expression>
 			</starts-with>
@@ -79,57 +67,57 @@
 		<include syntax="html" />
 	</scopes>
 
+	<scopes spell-check="true" lookup="dictionary">
+		<include syntax="html" />
+	</scopes>
+
 	<template-scopes>
-	<scope name="liquid.comment.block" spell-check="true">
-		<symbol type="tag-framework">
-			<context behavior="subtree" group-by-name="true" />
-		</symbol>
-		<starts-with>
-			<expression>\{\%-?\s*comment\s*-?\%\}</expression>
-			<capture number="0" name="liquid.comment.block.start" />
-		</starts-with>
-		<ends-with>
-			<expression>\{\%-?\s*endcomment\s*-?\%\}</expression>
-			<capture number="0" name="liquid.comment.block.end" />
-		</ends-with>
-		<!-- <subsyntax name="liquid-base" noncontiguous="true" export-symbols="true">
-			<cut-off>
-				<expression>(?=\%\})</expression>
-			</cut-off>
-		</subsyntax> -->
-	</scope>
-		<scope name="liquid.tag.framework" spell-check="false" lookup="index">
+		<scope name="liquid-html.comment.block" spell-check="true">
 			<symbol type="tag-framework">
 				<context behavior="subtree" group-by-name="true" />
 			</symbol>
 			<starts-with>
-				<expression>\{\{-?</expression>
-				<capture number="0" name="liquid.tag.framework.variable.start" />
+				<expression>\{\%-?\s*comment\s*-?\%\}</expression>
+				<capture number="0" name="liquid.comment.block.start" />
 			</starts-with>
 			<ends-with>
-				<expression>-?\}\}</expression>
-				<capture number="0" name="liquid.tag.framework.variable.end" />
+				<expression>\{\%-?\s*endcomment\s*-?\%\}</expression>
+				<capture number="0" name="liquid.comment.block.end" />
 			</ends-with>
-			<subsyntax name="liquid-base" noncontiguous="true" export-symbols="true">
+		</scope>
+	
+		<scope name="liquid-html.tag.framework" spell-check="false" lookup="index">
+			<symbol type="tag-framework">
+				<context behavior="subtree" group-by-name="true" />
+			</symbol>
+			<starts-with>
+				<expression>\{\{</expression>
+				<capture number="0" name="liquid-html.tag.framework.variable.start" />
+			</starts-with>
+			<ends-with>
+				<expression>\}\}</expression>
+				<capture number="0" name="liquid-html.tag.framework.variable.end" />
+			</ends-with>
+			<subsyntax name="liquid" noncontiguous="true" export-symbols="true">
 				<cut-off>
 					<expression>(?=\}\})</expression>
 				</cut-off>
 			</subsyntax>
 		</scope>
 
-		<scope name="liquid.tag.framework" spell-check="false" lookup="index">
+		<scope name="liquid-html.tag.framework" spell-check="false" lookup="index">
 			<symbol type="tag-framework">
 				<context behavior="subtree" group-by-name="true" />
 			</symbol>
 			<starts-with>
-				<expression>\{\%-?</expression>
-				<capture number="0" name="liquid.tag.framework.expression.start" />
+				<expression>\{\%</expression>
+				<capture number="0" name="liquid-html.tag.framework.expression.start" />
 			</starts-with>
 			<ends-with>
-				<expression>-?\%\}</expression>
-				<capture number="0" name="liquid.tag.framework.expression.end" />
+				<expression>\%\}</expression>
+				<capture number="0" name="liquid-html.tag.framework.expression.end" />
 			</ends-with>
-			<subsyntax name="liquid-base" noncontiguous="true" export-symbols="true">
+			<subsyntax name="liquid" noncontiguous="true" export-symbols="true">
 				<cut-off>
 					<expression>(?=\%\})</expression>
 				</cut-off>
