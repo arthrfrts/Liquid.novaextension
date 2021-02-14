@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<syntax name="liquid-base">
-  <meta>
-    <name>Liquid</name>
-    <type>markup</type>
-    <preferred-file-extension>liquid</preferred-file-extension>
-  </meta>
-    
-  <indentation>
+<syntax name="liquid" subsyntax="true">
+	<meta>
+		<name>Liquid</name>
+		<type>markup</type>
+	</meta>
+
+	<indentation>
 		<increase>
 			<expression>^\s*&lt;(([^!/?]|%)(?!.+?([/%]&gt;|&lt;/.+?&gt;))|[%!]--\s*$)</expression>
 		</increase>
@@ -14,8 +13,8 @@
 			<expression>^\s*(&lt;/[^&gt;]+&gt;|--&gt;|--%&gt;)</expression>
 		</decrease>
 	</indentation>
-    
-  <comments>
+
+	<comments>
 		<multiline>
 			<starts-with>
 				<expression>{% comment %}</expression>
@@ -25,7 +24,7 @@
 			</ends-with>
 		</multiline>
 	</comments>
-	
+
 	<brackets>
 		<pair open="{" close="}" />
 		<pair open="[" close="]" />
@@ -259,13 +258,12 @@
 			<!-- Tests -->
 			<scope name="liquid.identifier.function" spell-check="false">
 				<strings prefix="\b" suffix="\b" word-boundary="false">
-					<string>constant</string>
-					<string>divisible by</string>
-					<string>divisibleby</string>
-					<string>same as</string>
-					<string>sameas</string>
-					<string>instance of</string>
-					<string>instanceof</string>
+					<string>where</string>
+					<string>where_exp</string>
+					<string>find</string>
+					<string>find_exp</string>
+					<string>group_by</string>
+					<string>group_by_exp</string>
 				</strings>
 			</scope>
 			<!-- Regular Identifiers -->
@@ -313,25 +311,25 @@
 		</collection>
 		
 		<!-- Arguments (used in definitions) -->
-		<collection name="arguments">
+	  <collection name="arguments">
 			<scope name="liquid.arguments">
 				 <starts-with>
-						<expression>\(</expression>
-						<capture number="0" name="liquid.bracket" />
+					  <expression>\(</expression>
+					  <capture number="0" name="liquid.bracket" />
 				 </starts-with>
 				 <ends-with>
-						<expression>\)</expression>
-						<capture number="0" name="liquid.bracket" />
+					  <expression>\)</expression>
+					  <capture number="0" name="liquid.bracket" />
 				 </ends-with>
 				 <subscopes>
-						<scope name="liquid.identifier.argument.name">
+					  <scope name="liquid.identifier.argument.name">
 							<symbol type="argument" />
 							<expression>(?&lt;!\=)\b[a-zA-Z_][A-Za-zÀ-ÖØ-öø-ÿ0-9_]*\b</expression>
-						</scope>
-						<include syntax="self" collection="values" />
-						<include syntax="self" collection="syntax" />
+					  </scope>
+					  <include syntax="self" collection="values" />
+					  <include syntax="self" collection="syntax" />
 				 </subscopes>
 			</scope>
-		</collection>
+	  </collection>
 	</collections>
 </syntax>

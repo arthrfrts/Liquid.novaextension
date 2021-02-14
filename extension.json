@@ -3,11 +3,11 @@
   "name": "Liquid",
   "organization": "arthr",
   "description": "Syntax highlighting for Liquid template files.",
-  "version": "1.0",
+  "version": "1.0.1",
   "license": "MIT",
   "bugs": "https://github.com/arthrfrts/Liquid.novaextension/issues",
   "repository": "https://github.com/arthrfrts/Liquid.novaextension",
   "keywords": ["liquid", "jekyll", "shopify", "html", "templates", "syntax"],
   "categories": ["languages"],
-  "activationEvents": ["onLanguage:liquid"]
+  "activationEvents": ["onLanguage:liquid", "onLanguage:html"]
 }
