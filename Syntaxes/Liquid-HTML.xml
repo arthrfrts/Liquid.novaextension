@@ -9,7 +9,8 @@
 
 	<detectors>
 		<extension priority="1.0">liquid</extension>
-		<extension priority="2.0">html</extension>
+		<extension priority="0.5">html</extension>
+		<match-content lines="100" priority="0.9">{%</match-content>
 	</detectors>
 
 	<indentation>
