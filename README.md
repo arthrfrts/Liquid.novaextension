@@ -1,19 +1,14 @@
-# Liquid.novaextension 🌊
+# Liquid for Nova 🌊
 
-A [Nova](https://nova.app) extension that provides syntax highlighting and autocompletion for [Liquid template markup](http://liquidmarkup.org).
+A [Nova](https://nova.app) extension that provides syntax highlighting and code completion for [Liquid template markup](http://liquidmarkup.org) and [Jekyll custom tags and filters](https://jekyllrb.com/docs/liquid/).
 
 ![](https://github.com/arthrfrts/Liquid.novaextension/blob/main/preview.png)
 
 ## Language Support 📚
 
-Liquid currently supports the following features of Important Language:
+This extension adds supports for:
 
-- Native Tags
-- Jekyll Tags
+- Native Liquid tags and filters
+- Specific Jekyll tags and filters
 
-Support for:
-
-- Filters
-- Completions
-
-is planned for a future update. 🚀
+Code completion is still in early stages, and your help is appreciated!

@@ -1,3 +1,9 @@
+## Version 1.1
+
+**New:**
+
+- Completions! Now this extension supports code completions for both Liquid and Jekyll tags and filters.
+
 ## Version 1.0.3
 
 **Fixes:**
@@ -14,6 +20,8 @@
 - Added content matching rule for liquid handlebar (#1).
 
 ## Version 1.0.1
+
+**Fixes:**
 
 - Removes YAML block, since that didn't worked.
 - Improves Liquid tag support in Nova 4.0+.
