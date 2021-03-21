@@ -1,3 +1,9 @@
+## Version 1.0.3
+
+**Fixes:**
+
+- Fix an issue where all `.html` files were identified as Liquid files.
+
 ## Version 1.0.2
 
 **Enhancements:**
