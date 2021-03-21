@@ -11,7 +11,7 @@
 		<extension priority="1.0">liquid</extension>
 		<extension priority="0.2">html</extension>
 		<match-content lines="100" priority="0.9">\{\%</match-content>
-		<match-content lines="5" priority="0.7">\{\{</match-content>
+		<match-content lines="100" priority="0.7">\{\{</match-content>
 	</detectors>
 
 	<indentation>

@@ -2,7 +2,7 @@
 
 A [Nova](https://nova.app) extension that provides syntax highlighting and code completion for [Liquid template markup](http://liquidmarkup.org) and [Jekyll custom tags and filters](https://jekyllrb.com/docs/liquid/).
 
-![](https://github.com/arthrfrts/Liquid.novaextension/blob/main/preview.png)
+![Screenshot from Nova editor with a Liquid file being highlighted](https://github.com/arthrfrts/Liquid.novaextension/blob/main/preview.png?raw=true)
 
 ## Language Support 📚
 
