@@ -15,7 +15,7 @@
 		<expression>(?&lt;=\|\s)([a-zA-Z]*)</expression>
 		<set>liquid.filters</set>
 	</provider>
-	
+
 	<!-- Anything after regular opening brackets -->
 	<provider>
 		<syntax>liquid</syntax>
@@ -29,7 +29,7 @@
 		</symbols>
 		<set>liquid.globals</set>
 	</provider>
-	
+
 	<!-- Anything else after space, but not directly behind "{%" -->
 	<provider>
 		<syntax>liquid</syntax>
@@ -45,7 +45,7 @@
 		<set>liquid.keywords</set>
 		<set>liquid.globals</set>
 	</provider>
-	
+
 	<!-- Tags -->
 	<set name="liquid.tags">
 		<!-- Default: auto complete %} at the end -->
@@ -83,17 +83,17 @@
 				{% endcapture %]]></append>
 			</behavior>
 			<behavior suffix="%\}">
-				<append><![CDATA[$[variable name] %}
+				<append><![CDATA[ $[variable name] %}
 					$[content]
 				{% endcapture ]]></append>
 			</behavior>
 			<behavior suffix="(\s*%\})">
 				<append><![CDATA[ $[variable name] %}
-						$[content] 
+						$[content]
 				{% endcapture]]></append>
 			</behavior>
 			<behavior>
-				<append><![CDATA[ $[variable name] %} 
+				<append><![CDATA[ $[variable name] %}
 					$[content]
 				{% endcapture %}]]></append>
 			</behavior>
@@ -468,11 +468,11 @@
 			</behavior>
 			<behavior suffix="(\s*%\})">
 				<append><![CDATA[ $[syntax] %}
-						$[content] 
+						$[content]
 				{% endhighlight]]></append>
 			</behavior>
 			<behavior>
-				<append><![CDATA[ $[syntax] %} 
+				<append><![CDATA[ $[syntax] %}
 					$[content]
 				{% endhighlight %}]]></append>
 			</behavior>
@@ -520,7 +520,7 @@
 			</behavior>
 		</completion>
 	</set>
-	
+
 	<!-- Keywords -->
 	<set name="liquid.keywords" symbol="keyword">
 		<completion string="not" />
@@ -538,7 +538,7 @@
 			</behavior>
 		</completion>
 	</set>
-	
+
 	<!-- Tests -->
 	<set name="liquid.tests" symbol="keyword">
 		<completion string="blank" />
