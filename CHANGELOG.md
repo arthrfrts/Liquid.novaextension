@@ -1,3 +1,14 @@
+## Version 1.2
+
+**New:**
+
+- **Liquid on Markdown and Liquid on CSS/SCSS**  
+  You can now use Liquid in your Markdown, CSS and SCSS files.
+
+**To do:**
+
+- Liquid for Nova still doesn't figure out automatically if you're writing Liquid on Markdown and CSS files. I plan to look further in file matches and detectors to fix this issue.
+
 ## Version 1.1
 
 **New:**
