@@ -15,6 +15,14 @@
 
 - Removes the experimental detectors for Liquid on SCSS, CSS and Markdown. I still can't figure it out how make them work.
 
+### Version 1.2.2
+
+**Chores:**
+
+- Updates extension icon.
+
+**Fixes:**
+
 ## Version 1.1
 
 **New:**
