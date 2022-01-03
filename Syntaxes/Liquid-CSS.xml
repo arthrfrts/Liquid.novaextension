@@ -7,13 +7,6 @@
 		<parent>css</parent>
 	</meta>
 
-	<detectors>
-		<extension priority="1.0">css.liquid</extension>
-		<extension priority="0.2">css</extension>
-		<match-content lines="100" priority="0.8">\{\%</match-content>
-		<match-content lines="100" priority="0.7">\{\{</match-content>
-	</detectors>
-
 	<indentation>
 		<increase>
 			<expression>(?x)

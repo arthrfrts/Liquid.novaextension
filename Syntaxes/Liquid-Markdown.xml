@@ -7,14 +7,6 @@
 		<parent>markdown</parent>
 	</meta>
 	
-	<detectors>
-		<extension priority="0.9">md</extension>
-		<extension priority="0.8">mdown</extension>
-		<extension priority="0.7">markdown</extension>
-		<match-content lines="100" priority="0.8">\{\%</match-content>
-		<match-content lines="100" priority="0.7">\{\{</match-content>
-	</detectors>
-	
 	<comments>
 		<multiline>
 			<starts-with>
