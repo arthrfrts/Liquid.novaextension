@@ -9,6 +9,12 @@
 
 - Liquid for Nova still doesn't figure out automatically if you're writing Liquid on Markdown and CSS files. I plan to look further in file matches and detectors to fix this issue.
 
+### Version 1.2.1
+
+**Fixes:**
+
+- Removes the experimental detectors for Liquid on SCSS, CSS and Markdown. I still can't figure it out how make them work.
+
 ## Version 1.1
 
 **New:**
