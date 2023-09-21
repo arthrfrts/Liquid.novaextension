@@ -27,6 +27,12 @@
 
 - Adds detectors for Liquid on CSS, SCSS and Markdown files.
 
+#### Version 1.2.3-1
+
+**Chores:**
+
+- Updates changelog.
+
 **Fixes:**
 
 ## Version 1.1
