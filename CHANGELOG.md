@@ -21,6 +21,12 @@
 
 - Updates extension icon.
 
+### Version 1.2.3
+
+**Fixes:**
+
+- Adds detectors for Liquid on CSS, SCSS and Markdown files.
+
 **Fixes:**
 
 ## Version 1.1
