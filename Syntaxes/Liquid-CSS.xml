@@ -7,6 +7,11 @@
 		<parent>css</parent>
 	</meta>
 
+	<detectors>
+		<match-content lines="100" priority="1.0">\{\%</match-content>
+		<match-content lines="100" priority="0.9">\{\{</match-content>
+	</detectors>
+
 	<indentation>
 		<increase>
 			<expression>(?x)
