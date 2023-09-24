@@ -3,10 +3,10 @@
 	<meta>
 		<name>Markdown (Liquid)</name>
 		<type>markup</type>
-		<preferred-file-extension>md.liquid</preferred-file-extension>
+		<preferred-file-extension>markdown.liquid</preferred-file-extension>
 		<parent>markdown</parent>
 	</meta>
-
+	
 	<detectors>
 		<extension priority="1.0">md.liquid</extension>
 		<combo priority="0.7">
@@ -78,10 +78,8 @@
 				<expression>\{\%-?\s*endcomment\s*-?\%\}</expression>
 			</ends-with>
 		</scope>
-	</scopes>
 
-	<scopes spell-check="true" lookup="dictionary">
-		<include syntax="markdown" collection="*" />
+		<include syntax="markdown" />
 	</scopes>
 
 	<template-scopes>
@@ -137,4 +135,8 @@
 			</subsyntax>
 		</scope>
 	</template-scopes>
+	
+	<scopes spell-check="true" lookup="dictionary">
+		<include syntax="markdown" />
+	</scopes>
 </syntax>
