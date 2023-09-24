@@ -3,15 +3,47 @@
 	<meta>
 		<name>Markdown (Liquid)</name>
 		<type>markup</type>
-		<preferred-file-extension>md</preferred-file-extension>
+		<preferred-file-extension>md.liquid</preferred-file-extension>
 		<parent>markdown</parent>
 	</meta>
 
 	<detectors>
-		<match-content lines="100" priority="1.0">\{\%</match-content>
-		<match-content lines="100" priority="0.9">\{\{</match-content>
+		<extension priority="1.0">md.liquid</extension>
+		<combo priority="0.7">
+			<extension>md,mdown,markdown</extension>
+			<match-content>{% [a-zA-Z]</match-content>
+		</combo>
+		<combo priority="0.7">
+			<extension>md,mdown,markdown</extension>
+			<match-content>{{ [a-zA-Z]</match-content>
+		</combo>
+		<combo priority="0.7">
+			<extension>md,mdown,markdown</extension>
+			<match-content>{%- [a-zA-Z]</match-content>
+		</combo>
+		<combo priority="0.7">
+			<extension>md,mdown,markdown</extension>
+			<match-content>{{- [a-zA-Z]</match-content>
+		</combo>
 	</detectors>
-	
+
+	<indentation>
+		<increase>
+			<expression>(?x)
+				(&lt;(?!\?|(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)\b)
+				([-_\.A-Za-z0-9]+)(?=\s|&gt;)\b[^&gt;]*&gt;[^&lt;]*$)
+				|(&lt;!--\s*$)
+			</expression>
+		</increase>
+		<decrease>
+			<expression>(?x)
+				^\s*
+				(&lt;/[-_\.A-Za-z0-9]+\b[^>]*&gt;
+				|--&gt;
+			)</expression>
+		</decrease>
+	</indentation>
+
 	<comments>
 		<multiline>
 			<starts-with>
@@ -22,12 +54,12 @@
 			</ends-with>
 		</multiline>
 	</comments>
-	
+
 	<brackets>
 		<pair open="[" close="]" />
 		<pair open="(" close=")" />
 	</brackets>
-	
+
 	<surrounding-pairs>
 		<pair open="&lt;" close="&gt;" />
 		<pair open="[" close="]" />
@@ -36,7 +68,7 @@
 		<pair open="&quot;" close="&quot;" />
 		<pair open="`" close="`" />
 	</surrounding-pairs>
-	
+
 	<scopes spell-check="true" lookup="dictionary">
 		<scope name="liquid-markdown.comment.block" spell-check="true">
 			<starts-with>
@@ -46,14 +78,12 @@
 				<expression>\{\%-?\s*endcomment\s*-?\%\}</expression>
 			</ends-with>
 		</scope>
-	
-		<include syntax="markdown" />
 	</scopes>
-	
+
 	<scopes spell-check="true" lookup="dictionary">
-		<include syntax="markdown" />
+		<include syntax="markdown" collection="*" />
 	</scopes>
-	
+
 	<template-scopes>
 		<scope name="liquid-markdown.comment.block" spell-check="false">
 			<symbol type="tag-framework">
@@ -68,7 +98,7 @@
 				<capture number="0" name="liquid.comment.block.end" />
 			</ends-with>
 		</scope>
-	
+
 		<scope name="liquid-markdown.tag.framework" spell-check="false" lookup="index">
 			<symbol type="tag-framework">
 				<context behavior="subtree" group-by-name="true" />
@@ -87,7 +117,7 @@
 				</cut-off>
 			</subsyntax>
 		</scope>
-	
+
 		<scope name="liquid-markdown.tag.framework" spell-check="false" lookup="index">
 			<symbol type="tag-framework">
 				<context behavior="subtree" group-by-name="true" />

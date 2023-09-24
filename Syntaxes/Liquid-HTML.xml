@@ -9,9 +9,22 @@
 
 	<detectors>
 		<extension priority="1.0">liquid</extension>
-		<extension priority="0.2">html</extension>
-		<match-content lines="100" priority="0.9">\{\%</match-content>
-		<match-content lines="100" priority="0.7">\{\{</match-content>
+		<combo priority="0.7">
+			<extension>html</extension>
+			<match-content>{% [a-zA-Z]</match-content>
+		</combo>
+		<combo priority="0.7">
+			<extension>html</extension>
+			<match-content>{{ [a-zA-Z]</match-content>
+		</combo>
+		<combo priority="0.7">
+			<extension>html</extension>
+			<match-content>{%- [a-zA-Z]</match-content>
+		</combo>
+		<combo priority="0.7">
+			<extension>html</extension>
+			<match-content>{{- [a-zA-Z]</match-content>
+		</combo>
 	</detectors>
 
 	<indentation>
