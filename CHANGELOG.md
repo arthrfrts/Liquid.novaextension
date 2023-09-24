@@ -33,6 +33,13 @@
 
 - Updates changelog.
 
+
+### Version 1.2.4
+
+**Fixes:**
+
+- Fixes an issue with Markdown (Liquid) detector that activated in all cases.
+
 **Fixes:**
 
 ## Version 1.1
