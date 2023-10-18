@@ -40,7 +40,13 @@
 
 - Fixes an issue with Markdown (Liquid) detector that activated in all cases.
 
-**Fixes:**
+### Version 1.2.5
+
+**Ongoing:**
+
+- Removes detectors for Liquid subsyntaxes other than HTML, since they do not provide the quality I'm aiming for as of yet.
+
+***
 
 ## Version 1.1
 
