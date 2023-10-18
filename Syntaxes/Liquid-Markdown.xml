@@ -6,26 +6,6 @@
 		<preferred-file-extension>markdown.liquid</preferred-file-extension>
 		<parent>markdown</parent>
 	</meta>
-	
-	<detectors>
-		<extension priority="1.0">md.liquid</extension>
-		<combo priority="0.7">
-			<extension>md,mdown,markdown</extension>
-			<match-content>{% [a-zA-Z]</match-content>
-		</combo>
-		<combo priority="0.7">
-			<extension>md,mdown,markdown</extension>
-			<match-content>{{ [a-zA-Z]</match-content>
-		</combo>
-		<combo priority="0.7">
-			<extension>md,mdown,markdown</extension>
-			<match-content>{%- [a-zA-Z]</match-content>
-		</combo>
-		<combo priority="0.7">
-			<extension>md,mdown,markdown</extension>
-			<match-content>{{- [a-zA-Z]</match-content>
-		</combo>
-	</detectors>
 
 	<indentation>
 		<increase>

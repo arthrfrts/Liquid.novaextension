@@ -6,26 +6,6 @@
 		<preferred-file-extension>scss.liquid</preferred-file-extension>
 		<parent>scss</parent>
 	</meta>
-	
-	<detectors>
-		<extension priority="1.0">scss.liquid</extension>
-		<combo priority="0.7">
-			<extension>scss</extension>
-			<match-content>{% [a-zA-Z]</match-content>
-		</combo>
-		<combo priority="0.7">
-			<extension>scss</extension>
-			<match-content>{{ [a-zA-Z]</match-content>
-		</combo>
-		<combo priority="0.7">
-			<extension>scss</extension>
-			<match-content>{%- [a-zA-Z]</match-content>
-		</combo>
-		<combo priority="0.7">
-			<extension>scss</extension>
-			<match-content>{{- [a-zA-Z]</match-content>
-		</combo>
-	</detectors>
 
 	<indentation>
 		<increase>
