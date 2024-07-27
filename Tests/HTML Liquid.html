@@ -1,0 +1,102 @@
+---
+layout: default
+title: My Awesome Page
+author: John Doe
+categories: [jekyll, liquid, template]
+tags: [example, tutorial, liquid]
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title | default: "Untitled" }}</title>
+  <link rel="stylesheet" href="{{ "/assets/styles.css" | relative_url }}">
+</head>
+<body>
+  <header>
+	<h1>{{ site.title | escape }}</h1>
+	<nav>
+	  <ul>
+		{% for link in site.data.navigation -%}
+		  <li><a href="{{ link.url | relative_url }}">{{ link.name | capitalize }}</a></li>
+		{%- endfor %}
+	  </ul>
+	</nav>
+  </header>
+  <main>
+	<article>
+	  <h2>{{ page.title | upcase }}</h2>
+	  <p>{{ content | markdownify }}</p>
+	  <p>Author: {{ page.author }}</p>
+	  <p>Categories: 
+		{%- for category in page.categories -%}
+		  {{ category }}{% if forloop.last %}.{% else %}, {% endif %}
+		{%- endfor %}
+	  </p>
+	  <p>Tags: 
+		{%- for tag in page.tags -%}
+		  {{ tag }}{% if forloop.last %}.{% else %}, {% endif %}
+		{%- endfor %}
+	  </p>
+	  {% if page.categories contains "jekyll" %}
+		<p>This page is about Jekyll.</p>
+	  {% else %}
+		<p>This page is not about Jekyll.</p>
+	  {% endif %}
+	  {% assign featured_posts = site.posts | where: "category", "featured" %}
+	  <h3>Featured Posts:</h3>
+	  <ul>
+		{% for post in featured_posts -%}
+		  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+		{%- endfor %}
+	  </ul>
+	  {% include related_posts.html current_post=page %}
+	</article>
+	<aside>
+	  <h3>Categories</h3>
+	  <ul>
+		{% assign categories = site.categories | sort %}
+		{% for category in categories -%}
+		  <li>{{ category | first }} ({{ category | last }})</li>
+		{%- endfor %}
+	  </ul>
+	  <h3>Recent Posts</h3>
+	  <ul>
+		{% for post in site.posts limit:5 -%}
+		  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+		{%- endfor %}
+	  </ul>
+	  <h3>Tag Cloud</h3>
+	  <div class="tag-cloud">
+		{% assign tags = site.tags | sort %}
+		{% for tag in tags -%}
+		  <span class="tag" style="font-size: {{ tag | size | times: 10 | plus: 10 }}%;">{{ tag[0] }}</span>
+		{%- endfor %}
+	  </div>
+	  <h3>Authors and Their Posts</h3>
+	  <ul>
+		{% assign authors = site.data.authors %}
+		{% for author in authors -%}
+		  <li>{{ author.name }}
+			<ul>
+			  {% assign author_posts = site.posts | where: "author", author.name %}
+			  {% for post in author_posts -%}
+				<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+			  {%- endfor %}
+			</ul>
+		  </li>
+		{%- endfor %}
+	  </ul>
+	</aside>
+  </main>
+  <footer>
+	<p>&copy; {{ site.time | date: "%Y" }} {{ site.author.name }}</p>
+	<p>Last updated: {{ page.date | date_to_long_string }}</p>
+	{% capture footer_note -%}
+	  This site is powered by Jekyll and Liquid templates.
+	{%- endcapture %}
+	<p>{{ footer_note | strip_html }}</p>
+  </footer>
+</body>
+</html>
