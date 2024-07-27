@@ -1,11 +1,3 @@
----
-layout: default
-title: My Awesome Page
-author: John Doe
-categories: [jekyll, liquid, template]
-tags: [example, tutorial, liquid]
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +6,7 @@ tags: [example, tutorial, liquid]
   <link rel="stylesheet" href="{{ "/assets/styles.css" | relative_url }}">
 </head>
 <body>
+	{% assign site = ['title'] %}
   <header>
 	<h1>{{ site.title | escape }}</h1>
 	<nav>
@@ -56,6 +49,7 @@ tags: [example, tutorial, liquid]
 	<aside>
 	  <h3>Categories</h3>
 	  <ul>
+	  	{%- assign site = last | prepend: "test" -%}
 		{% assign categories = site.categories | sort %}
 		{% for category in categories -%}
 		  <li>{{ category | first }} ({{ category | last }})</li>
