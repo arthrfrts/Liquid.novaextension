@@ -1,6 +1,6 @@
 # Liquid for Nova 🌊
 
-A [Nova](https://nova.app) extension that provides syntax highlighting and code completion for [Liquid template markup](http://liquidmarkup.org) and [Jekyll custom tags and filters](https://jekyllrb.com/docs/liquid/).
+A [Nova](https://nova.app) extension that provides syntax highlighting for [Liquid template markup](http://liquidmarkup.org) and [Jekyll custom tags and filters](https://jekyllrb.com/docs/liquid/).
 
 ![Screenshot from Nova editor with a Liquid file being highlighted](https://github.com/arthrfrts/Liquid.novaextension/blob/main/preview.png?raw=true)
 
@@ -8,7 +8,13 @@ A [Nova](https://nova.app) extension that provides syntax highlighting and code 
 
 This extension adds supports for:
 
-- Native Liquid tags and filters
-- Specific Jekyll tags and filters
+- Liquid tags and filters
+- Some Jekyll-specific filters
+- Liquid detectors for HTML and Markdown files
+- Both Tree-sitter and Regex languages, for Novas both new and old!
 
-Code completion is still in early stages, and your help is appreciated!
+Completions are in the works for the future, stay tuned!
+
+## Thanks!
+
+Version 2.x of this extension exists thanks to the work of @hankthetank27' [`tree-sitter-liquid` grammar](https://github.com/hankthetank27/tree-sitter-liquid). Hooray! 🎉
