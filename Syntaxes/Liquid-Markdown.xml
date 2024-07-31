@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<syntax name="liquid-html">
+<syntax name="liquid-md">
 	<meta>
-		<name>HTML (Liquid)</name>
+		<name>Markdown (Liquid)</name>
 		<type>markup</type>
-		<preferred-file-extension>html</preferred-file-extension>
+		<preferred-file-extension>md</preferred-file-extension>
 		<parent>liquid</parent>
 	</meta>
 
 	<detectors>
-		<extension priority="1.0">liquid</extension>
 		<combo priority="0.9">
-			<extension>html</extension>
+			<extension>md</extension>
 			<match-content lines="100">\{\%</match-content>
 			<match-content lines="100">\{\{</match-content>
 		</combo>
