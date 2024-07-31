@@ -1,3 +1,20 @@
+## Version 2.0 🌳
+Released July 30, 2024.
+
+**Tree-sitter!** I finally managed to migrate this extension to be a Tree-sitter language, using the tree-sitter library to support rich syntax rules.
+
+This is an initial release, to prepare for the release of Nova 13, which will drop support for the legacy Regex language extensions later this year. So, somethings to consider before updating:
+
+* There is not support for some custom Jekyll tags, such as `include_cached`, `seo`, and `feed_meta`. I'm looking into adding these custom tags back to the extension soon.
+* SCSS (Liquid) and CSS (Liquid) were removed. Both never worked great before, so I'm planning to start fresh this time and try to reimplement it in a better way in the future.
+* I plan to rewrite the Completions in the future, stay tuned!
+
+Also, some bugs were fixed --- mostly under the hood (like variables being considered methods). One major fix was in detectors. Now I believe HTML and Markdown files will be properly detected without conflicting with their non-Liquidfied counterparts :)
+
+Please, help me make this new major version better by filing bugs and giving feedback on [GitHub](https://github.com/arthrfrts/Liquid.novaextension). Thanks!
+
+***
+
 ## Version 1.2
 
 **New:**
