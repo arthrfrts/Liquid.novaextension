@@ -13,6 +13,20 @@ Also, some bugs were fixed --- mostly under the hood (like variables being consi
 
 Please, help me make this new major version better by filing bugs and giving feedback on [GitHub](https://github.com/arthrfrts/Liquid.novaextension). Thanks!
 
+### Version 2.0.1
+
+**New:**
+
+- **Initial support for Jekyll-specific syntax**  
+	Jekyll-specific tags, such as `{% link %}` and `{% feed_meta %}` are supported.
+
+**Fixes:**
+
+- **Fixes code-injections for Markdown**  
+	Prevents HTML (Liquid) files to think they're actually Markdown files. They're not!
+- **Fixes support for filters**  
+	Sorry about that! Filters are working as it should have since v2.0 release.
+
 ***
 
 ## Version 1.2
