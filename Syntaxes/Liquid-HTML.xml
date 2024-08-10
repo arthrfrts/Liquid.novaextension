@@ -60,7 +60,7 @@
 	
 	<tree-sitter language="liquid">
 		<highlights />
-		<injections />
+		<injections path="injections/html.scm" />
 	</tree-sitter>
 	
 	<scopes spell-check="true" lookup="dictionary">

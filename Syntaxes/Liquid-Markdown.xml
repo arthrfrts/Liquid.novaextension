@@ -59,7 +59,7 @@
 	
 	<tree-sitter language="liquid">
 		<highlights />
-		<injections />
+		<injections path="injections/markdown.scm" />
 	</tree-sitter>
 	
 	<scopes spell-check="true" lookup="dictionary">

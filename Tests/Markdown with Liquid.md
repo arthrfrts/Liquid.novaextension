@@ -66,7 +66,7 @@ The price is {{ price | format: "%.2f" }}.
 
 You can include other Liquid files:
 
-{% include 'header.html' %}
+{% include header.html %}
 
 ## Capturing
 

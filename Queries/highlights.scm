@@ -1,94 +1,3 @@
-((comment) @comment @spell
-  (#set! priority 110))
-
-(raw_statement
-  (raw_content) @spell
-  (#set! priority 110))
-
-((identifier) @identifier
-  (#set! priority 110))
-
-(access
-receiver: (identifier) @identifier
-  property: (identifier) @identifier.property
-  (#set! priority 120)
-)
-
-((string) @string
-  (#set! priority 110))
-
-((boolean) @value.boolean
-  (#set! priority 110))
-
-((number) @value.number
-  (#set! priority 110))
-
-(filter
-  name: (identifier) @identifier.function
-  (#set! priority 110))
-  
-([
-  "echo"
-  "endcapture"
-  "endform"
-  "endjavascript"
-  "endraw"
-  "endschema"
-  "endstyle"
-  "form"
-  "include"
-  "javascript"
-  "layout"
-  "liquid"
-  "raw"
-  "schema"
-  "style"
-  (break_statement)
-  (continue_statement)
-  "by"
-  "cycle"
-  "endfor"
-  "endpaginate"
-  "endtablerow"
-  "for"
-  "paginate"
-  "tablerow"
-] @keyword
-  (#set! priority 110))
-
-([
-  "as"
-  "assign"
-  "decrement"
-  "increment"
-  "with"
-  "capture"
-  "endcapture"
-  ; "include"
-] @keyword.construct
-  (#set! priority 110))
-
-([
-  "case"
-  "else"
-  "elsif"
-  "endcase"
-  "endif"
-  "endunless"
-  "if"
-  "unless"
-  "when"
-] @keyword.conditional
-  (#set! priority 110))
-
-([
-  "and"
-  "contains"
-  "in"
-  "or"
-] @keyword.modifier
-  (#set! priority 110))
-
 ([
   "{{"
   "}}"
@@ -98,51 +7,112 @@ receiver: (identifier) @identifier
   "%}"
   "{%-"
   "-%}"
-] @tag.framework
-  (#set! priority 110))
+  ] @tag.framework
+ (#set! priority 101))
 
-[
-  "include"
-  "render"
-  "section"
-  "sections"
-] @keyword.self
 
-[
-  "|"
-  ":"
-  "="
-  "+"
-  "-"
-  "*"
-  "/"
-  "%"
-  "^"
-  "=="
-  "<"
-  "<="
-  "!="
-  ">="
-  ">"
-] @operator
-
-[
+([
   "]"
   "["
   ")"
   "("
-] @bracket
+  ] @bracket
+ (#set! priority 101))
 
-[
+([
   ","
   "."
-] @comma
+  ] @comma
+ (#set! priority 101))
 
-[
-  (identifier) @tag.framework (#match? @keyword ".*")
-]
 
-; ;; Match custom Liquid variables (e.g., {{ custom_var1 }})
-; [
-;   (variable_name) @variable (#match? @variable "custom_var1|custom_var2")
-; ]
+([
+  (break_statement)
+  "by"
+  "case"
+  (continue_statement)
+  (custom_unpaired_statement)
+  "cycle"
+  "decrement"
+  "echo"
+  "else"
+  "elsif"
+  "endcase"
+  "endfor"
+  "endform"
+  "endif"
+  "endjavascript"
+  "endpaginate"
+  "endraw"
+  "endschema"
+  "endstyle"
+  "endtablerow"
+  "endunless"
+  "for"
+  "form"
+  "if"
+  "increment"
+  "javascript"
+  "layout"
+  "liquid"
+  "paginate"
+  "raw"
+  "schema"
+  "section"
+  "sections"
+  "style"
+  "tablerow"
+  "unless"
+  "when"
+  "with"
+  ] @keyword
+ (#set! priority 101))
+ 
+ ([
+	 "assign"
+	 "capture"
+	 "endcapture"
+	 "include"
+	 "render"
+	 ] @keyword.construct
+	(#set! priority 101))
+
+([
+  "and"
+  "contains"
+  "or"
+  ] @keyword.operator
+ (#set! priority 101))
+ 
+([
+	 "as"
+	 "in"
+	 ] @keyword.modifier
+	(#set! priority 101))
+
+([
+  "|"
+  ":"
+  "="
+  (predicate)
+  ] @operator
+ (#set! priority 101))
+
+((identifier) @identifier (#set! priority 101))
+((string) @string (#set! priority 101))
+((boolean) @value.boolean (#set! priority 101))
+((number) @value.number (#set! priority 101))
+
+(access
+	receiver: (identifier) @identifier
+	property: (identifier) @identifier.property
+	(#set! priority 120)
+)
+
+(filter
+  name: (identifier) @identifier.function (#set! priority 101))
+
+(raw_statement
+  (raw_content) @keyword.self (#set! priority 102))
+
+((comment) @comment (#set! priority 102))

@@ -1,53 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
-</head>
-<body>
-  <header class="site-header">
-	<div class="container">
-	  <h1 class="site-title">{{ site.title }}</h1>
-	  <nav class="site-nav">
-		<ul>
-		  <li><a href="{{ '/' | relative_url }}">Home</a></li>
-		  <li><a href="{{ '/about' | relative_url }}">About</a></li>
-		  <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
-		</ul>
-	  </nav>
-	</div>
-  </header>
+<!doctype html>
+<html lang="{{- page.lang | default: site.lang -}}">
+  <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <main class="site-main container">
-	<article class="post">
-	  <h2 class="post-title">{{ page.title }}</h2>
-	  <p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
+	<title>{%- if page.title -%}{{ page.title }} — {% endif %} {{ site.title }}</title>
+	{% seo title=false %}
 
-	  <div class="post-content">
+	<link rel="stylesheet" href="{% link /assets/css/base.css %}" />
+	<link rel="stylesheet" href="{% link /assets/css/layout.css %}" />
+	<link rel="stylesheet" href="{% link /assets/css/fonts.css %}" />
+
+	{% feed_meta %}
+	{% json_feed_meta %}
+  </head>
+  <body>
+	<div class="hug">
+	  <header class="site-header">
+		{% if page.title %}
+		  <h3 class="site-title">
+			<a href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+		  </h3>
+		{% else %}
+		  <h1 class="site-title">
+			<a href="{{ '/' | absolute_url }}">{{ site.title }}</a>
+		  </h1>
+		{% endif %}
+	  
+		{% if site.nav %}
+		  <nav class="site-menu">
+			{% for path in site.nav %}
+			  {% assign nav_page = site.pages | where: "path", path | first %}
+	  
+			  <a
+				class="menu-item {% if page.url == nav_page.url %}_current{% endif %}"
+				href="{{ nav_page.url | relative_url }}"
+			  >
+				{{ nav_page.title }}
+			  </a>
+			{% endfor %}
+		  </nav>
+		{% endif %}
+	  </header>
+
+
+	  <main class="site-content">
 		{{ content }}
-	  </div>
+	  </main>
 
-	  <footer class="post-footer">
-		<p>Categories: 
-		  {% for category in page.categories %}
-			<a href="{{ site.baseurl }}/categories/{{ category }}">{{ category }}</a>{% if forloop.last == false %}, {% endif %}
-		  {% endfor %}
-		</p>
-		<p>Tags: 
-		  {% for tag in page.tags %}
-			<a href="{{ site.baseurl }}/tags/{{ tag }}">{{ tag }}</a>{% if forloop.last == false %}, {% endif %}
-		  {% endfor %}
-		</p>
-	  </footer>
-	</article>
-  </main>
-
-  <footer class="site-footer">
-	<div class="container">
-	  <p>&copy; {{ "now" | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+	  {% include footer.html %}
 	</div>
-  </footer>
-</body>
+  </body>
 </html>
