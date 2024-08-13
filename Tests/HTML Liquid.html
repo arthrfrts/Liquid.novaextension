@@ -3,14 +3,14 @@
   <head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+
 		<title>{%- if page.title -%}{{ page.title }} — {% endif %} {{ site.title }}</title>
 		{% seo title=false %}
-	
+
 		<link rel="stylesheet" href="{% link /assets/css/base.css %}" />
 		<link rel="stylesheet" href="{% link /assets/css/layout.css %}" />
 		<link rel="stylesheet" href="{%- link /assets/css/fonts.css -%}" />
-	
+
 		{% feed_meta %}
 		{% json_feed_meta %}
   </head>
@@ -26,28 +26,29 @@
 					<a href="{{ '/' | absolute_url }}">{{ site.title }}</a>
 		  		</h1>
 				{% endif %}
-	  	
+
 				{% if site.nav %}
 		  		<nav class="site-menu">
 						{% for path in site.nav %}
 			  			{% assign nav_page = site.pages | where: "path", path | first %}
-	  			
+
 			  			<a
 								class="menu-item {% if page.url == nav_page.url %}_current{% endif %}"
 								href="{{ nav_page.url | relative_url }}"
 			  			>
 								{{ nav_page.title }}
+
 			  			</a>
 						{% endfor %}
 		  		</nav>
 				{% endif %}
 	  	</header>
-	
-	
+
+
 	  	<main class="site-content">
 			{{ content }}
 	  	</main>
-	
+
 	  	{% include footer.html %}
 		</div>
   </body>
