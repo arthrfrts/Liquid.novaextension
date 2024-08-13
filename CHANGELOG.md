@@ -26,6 +26,15 @@ Please, help me make this new major version better by filing bugs and giving fee
 	Prevents HTML (Liquid) files to think they're actually Markdown files. They're not!
 - **Fixes support for filters**  
 	Sorry about that! Filters are working as it should have since v2.0 release.
+  
+### Version 2.0.2
+
+**New:**
+
+- **New tags**  
+  Added support for Jekyll `{% include_relative %}` tag.
+- **Updates tree-sitter dylib**  
+  Following latest release by @hankthetank27.
 
 ***
 
