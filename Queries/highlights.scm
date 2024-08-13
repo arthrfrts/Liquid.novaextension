@@ -67,12 +67,13 @@
   "with"
   ] @keyword
  (#set! priority 101))
- 
+
  ([
 	 "assign"
 	 "capture"
 	 "endcapture"
 	 "include"
+   "include_relative"
 	 "render"
 	 ] @keyword.construct
 	(#set! priority 101))
@@ -83,7 +84,7 @@
   "or"
   ] @keyword.operator
  (#set! priority 101))
- 
+
 ([
 	 "as"
 	 "in"
