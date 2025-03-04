@@ -1,812 +1,395 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <completions>
-	<!-- Tags directly after "{% " -->
-	<provider>
-		<syntax>liquid</syntax>
-		<selector>*:not(string,comment)</selector>
-		<expression>(?&lt;=\{%\s)([a-zA-Z]*)</expression>
-		<set>liquid.tags</set>
-	</provider>
+  <!-- Liquid Block Providers -->
 
-	<!-- Filters after "|" -->
-	<provider>
-		<syntax>liquid</syntax>
-		<selector>*:not(string,comment)</selector>
-		<expression>(?&lt;=\|\s)([a-zA-Z]*)</expression>
-		<set>liquid.filters</set>
-	</provider>
+  <!-- Liquid tags provider after `{%` -->
+  <provider name="liquid.tags">
+    <syntax>liquid</syntax>
+    <syntax>liquid-html</syntax>
+    <syntax>liquid-md</syntax>
+    <query>
+      ((tag_start) @provider.subtree
+        (#cursor-in? @provider.subtree))
+    </query>
+    <expression>(?&lt;=\{%\s)([a-zA-Z]*)</expression>
+    <set>liquid.tags</set>
+  </provider>
 
-	<!-- Anything after regular opening brackets -->
-	<provider>
-		<syntax>liquid</syntax>
-		<selector>*:not(string, comment)</selector>
-		<expression>(?&lt;=\()([a-zA-Z]*)</expression>
-		<symbols type="variable" />
-		<symbols type="function">
-			<behavior>
-				<arguments prefix="(" suffix=")" separator=", " />
-			</behavior>
-		</symbols>
-		<set>liquid.globals</set>
-	</provider>
+  <!-- Liquid closing tag provider after `{%` end -->
+  <provider name="liquid.end-tags">
+    <syntax>liquid</syntax>
+    <syntax>liquid-html</syntax>
+    <syntax>liquid-md</syntax>
+    <query>
+      ((tag_start
+        "{% " @provider.start
+        "end" @tag-prefix) @provider.subtree
+        (#cursor-in? @provider.subtree))
+    </query>
+    <set>liquid.end-tags</set>
+  </provider>
 
-	<!-- Anything else after space, but not directly behind "{%" -->
-	<provider>
-		<syntax>liquid</syntax>
-		<selector>*:not(string, comment)</selector>
-		<expression>(?&lt;!is\s|apply\s|\{%\s|\S)([a-zA-Z]*)(?!%\})</expression>
-		<symbols type="variable" />
-		<symbols type="function">
-			<behavior>
-				<arguments prefix="(" suffix=")" separator=", " />
-			</behavior>
-		</symbols>
-		<set>liquid.functions</set>
-		<set>liquid.keywords</set>
-		<set>liquid.globals</set>
-	</provider>
+  <!-- Liquid filter provider after `|` -->
+  <provider name="liquid.filters">
+    <syntax>liquid</syntax>
+    <syntax>liquid-html</syntax>
+    <syntax>liquid-md</syntax>
+    <query>
+      ((output_statement
+        (variable
+          (filter
+            "|" @provider.start))) @provider.subtree
+        (#cursor-in? @provider.subtree))
+    </query>
+    <expression>(?&lt;=\|\s)([a-zA-Z]*)</expression>
+    <set>liquid.filters</set>
+  </provider>
 
-	<!-- Tags -->
-	<set name="liquid.tags">
-		<!-- Default: auto complete %} at the end -->
-		<behavior suffix="\}">
-			<append> %</append>
-		</behavior>
-		<behavior suffix="%\}">
-			<append> </append>
-		</behavior>
-		<behavior suffix="(\s*%\})">
-			<append></append>
-		</behavior>
-		<behavior>
-			<append> %}</append>
-		</behavior>
-		<!-- Variables -->
-		<completion string="assign" priority="2">
-			<behavior suffix="\}">
-				<append> $[variable name] = $[content] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[variable name] = $[content] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[variable name] = $[content]</append>
-			</behavior>
-			<behavior>
-				<append> $[variable name] = $[content] %}</append>
-			</behavior>
-		</completion>
-		<completion string="capture" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[variable name] %}
-					$[content]
-				{% endcapture %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ $[variable name] %}
-					$[content]
-				{% endcapture ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[variable name] %}
-						$[content]
-				{% endcapture]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[variable name] %}
-					$[content]
-				{% endcapture %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="increment" priority="2">
-			<behavior suffix="\}">
-				<append> $[variable name] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[variable name] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[variable name]</append>
-			</behavior>
-			<behavior>
-				<append> $[variable name] %}</append>
-			</behavior>
-		</completion>
-		<completion string="decrement" priority="2">
-			<behavior suffix="\}">
-				<append> $[variable name] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[variable name] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[variable name]</append>
-			</behavior>
-			<behavior>
-				<append> $[variable name] %}</append>
-			</behavior>
-		</completion>
-		<completion string="endcapture" />
-		<!-- Raw -->
-		<completion string="raw" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ %}
-					$[content]
-				{% endraw %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ %}
-					$[content]
-				{% endraw ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ %}
-					$[content]
-				{% endraw]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ %}
-					$[content]
-				{% endraw %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="endraw" />
-		<!-- Control flow -->
-		<completion string="if" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endif %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endif ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endif]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endif %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="if" priority="1">
-			<behavior suffix="\}">
-				<append> $[condition] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[condition] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[condition]</append>
-			</behavior>
-			<behavior>
-				<append> $[condition] %}</append>
-			</behavior>
-		</completion>
-		<completion string="else" />
-		<completion string="elsif">
-			<behavior suffix="\}">
-				<append> $[condition] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[condition] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[condition]</append>
-			</behavior>
-			<behavior>
-				<append> $[condition] %}</append>
-			</behavior>
-		</completion>
-		<completion string="endif" />
-		<completion string="unless" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endunless %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endunless ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endunless]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[condition] %}
-					$[…]
-				{% endunless %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="unless" priority="1">
-			<behavior suffix="\}">
-				<append> $[condition] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[condition] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[condition]</append>
-			</behavior>
-			<behavior>
-				<append> $[condition] %}</append>
-			</behavior>
-		</completion>
-		<completion string="endunless" />
-		<completion string="case" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[variable] %}
-					$[…]
-				{% endcase %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ $[variable] %}
-					$[…]
-				{% endcase ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[variable] %}
-					$[…]
-				{% endcase]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[variable] %}
-					$[…]
-				{% endcase %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="case" priority="1">
-			<behavior suffix="\}">
-				<append> $[variable] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[variable] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[variable]</append>
-			</behavior>
-			<behavior>
-				<append> $[variable] %}</append>
-			</behavior>
-		</completion>
-		<completion string="endcase" />
-		<completion string="when" priority="1">
-			<behavior suffix="\}">
-				<append> $[value] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[value] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[value]</append>
-			</behavior>
-			<behavior>
-				<append> $[value] %}</append>
-			</behavior>
-		</completion>
-		<!-- Iteration -->
-		<completion string="for" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[variable] in $[array] %}
-				$[…]
-				{% endfor %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ $[variable] in $[array] %}
-				$[…]
-				{% endfor ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[variable] in $[array] %}
-				$[…]
-				{% endfor]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[variable] in $[array] %}
-				$[…]
-				{% endfor %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="for" priority="1">
-			<behavior suffix="\}">
-				<append> $[variable] in $[array] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[variable] in $[array] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[variable] in $[array]</append>
-			</behavior>
-			<behavior>
-				<append> $[variable] in $[array] %}</append>
-			</behavior>
-		</completion>
-		<completion string="endfor" />
-		<completion string="break" />
-		<completion string="continue" />
-		<completion string="cycle">
-			<behavior suffix="\}">
-				<append> "$[one]", "$[two]", "$[three]" %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> "$[one]", "$[two]", "$[three]" </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> "$[one]", "$[two]", "$[three]"</append>
-			</behavior>
-			<behavior>
-				<append> "$[one]", "$[two]", "$[three]" %}</append>
-			</behavior>
-		</completion>
-		<completion string="cycle">
-			<behavior suffix="\}">
-				<append> "group": "$[one]", "$[two]", "$[three]" %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> "group": "$[one]", "$[two]", "$[three]" </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> "group": "$[one]", "$[two]", "$[three]"</append>
-			</behavior>
-			<behavior>
-				<append> "group": "$[one]", "$[two]", "$[three]" %}</append>
-			</behavior>
-		</completion>
-		<completion string="tablerow" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[item] in $[row] %}
-				$[…]
-				{% endtablerow %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[ $[item] in $[row] %}
-				$[…]
-				{% endtablerow ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[item] in $[row] %}
-				$[…]
-				{% endtablerow]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[item] in $[row] %}
-				$[…]
-				{% endtablerow %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="tablerow" priority="1">
-			<behavior suffix="\}">
-				<append> $[item] in $[row] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[item] in $[row] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[item] in $[row]</append>
-			</behavior>
-			<behavior>
-				<append> $[item] in $[row] %}</append>
-			</behavior>
-		</completion>
-		<completion string="endfor" />
-		<!-- Layout -->
-		<completion string="include">
-			<behavior suffix="\}">
-				<append> "$[file path]" %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> "$[file path]" </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> "$[file path]"</append>
-			</behavior>
-			<behavior>
-				<append> "$[file path]" %}</append>
-			</behavior>
-		</completion>
-		<completion string="include">
-			<behavior suffix="\}">
-				<append> $[file] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[file] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[file]</append>
-			</behavior>
-			<behavior>
-				<append> $[file] %}</append>
-			</behavior>
-		</completion>
-		<completion string="include">
-			<behavior suffix="\}">
-				<append> "$[file path]" with $[variable] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> "$[file path]" with $[variable] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> "$[file path]" with $[variable]</append>
-			</behavior>
-			<behavior>
-				<append> "$[file path" with $[variable] %}</append>
-			</behavior>
-		</completion>
-		<completion string="render">
-			<behavior suffix="\}">
-				<append> "$[file]" %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> "$[file]" </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> "$[file]"</append>
-			</behavior>
-			<behavior>
-				<append> "$[file]" %}</append>
-			</behavior>
-		</completion>
-		<!-- Jekyll -->
-		<completion string="highlight" priority="2">
-			<behavior suffix="\}">
-				<append><![CDATA[ $[syntax] %}
-					$[content]
-				{% endhighlight %]]></append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append><![CDATA[$[syntax] %}
-					$[content]
-				{% endhighlight ]]></append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append><![CDATA[ $[syntax] %}
-						$[content]
-				{% endhighlight]]></append>
-			</behavior>
-			<behavior>
-				<append><![CDATA[ $[syntax] %}
-					$[content]
-				{% endhighlight %}]]></append>
-			</behavior>
-		</completion>
-		<completion string="link">
-			<behavior suffix="\}">
-				<append> $[file path] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[file path] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[file path]</append>
-			</behavior>
-			<behavior>
-				<append> $[file path] %}</append>
-			</behavior>
-		</completion>
-		<completion string="post_url">
-			<behavior suffix="\}">
-				<append> $[post path] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[post path] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[post path]</append>
-			</behavior>
-			<behavior>
-				<append> $[post path] %}</append>
-			</behavior>
-		</completion>
-		<completion string="include_relative">
-			<behavior suffix="\}">
-				<append> $[file path] %</append>
-			</behavior>
-			<behavior suffix="%\}">
-				<append> $[file path] </append>
-			</behavior>
-			<behavior suffix="(\s*%\})">
-				<append> $[file path]</append>
-			</behavior>
-			<behavior>
-				<append> $[file path] %}</append>
-			</behavior>
-		</completion>
-	</set>
+  <!-- Liquid tags -->
+  <set name="liquid.tags">
+    <!-- Control Flow tags -->
+    <completion string="if" symbol="keyword" priority="2">
+      <behavior suffix="%}">
+        <append><![CDATA[ $[statement]
+  $[content]
+{% else %}
+  $[alternative]
+{% endif ]]></append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append><![CDATA[ $[statement]
+  $[content]
+{% else %}
+  $[alternative]
+{% endif]]></append>
+      </behavior>
+      <behavior>
+        <append><![CDATA[ $[statement] %}
+  $[content]
+{% else %}
+  $[alternative]
+{% endif %}]]></append>
+      </behavior>
+    </completion>
+    <completion string="if" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[statement] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[statement]</append>
+      </behavior>
+      <behavior>
+        <append> $[statement] %}</append>
+      </behavior>
+    </completion>
+    <completion string="unless" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[statement] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[statement]</append>
+      </behavior>
+      <behavior>
+        <append> $[statement] %}</append>
+      </behavior>
+    </completion>
+    <completion string="for" symbol="keyword" priority="2">
+      <behavior suffix="%}">
+        <append><![CDATA[ $[item] in $[collection]
+  $[content]
+{% endfor ]]></append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append><![CDATA[ $[item] in $[collection]
+  $[content]
+{% endfor]]></append>
+      </behavior>
+      <behavior>
+        <append><![CDATA[ $[item] in $[collection] %}
+  $[content]
+{% endfor %}]]></append>
+      </behavior>
+    </completion>
+    <completion string="for" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[item] in $[collection] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[item] in $[collection]</append>
+      </behavior>
+      <behavior>
+        <append> $[item] in $[collection] %}</append>
+      </behavior>
+    </completion>
+    <completion string="else" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
+    <completion string="elsif" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[statement] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[statement]</append>
+      </behavior>
+      <behavior>
+        <append> $[statement] %}</append>
+      </behavior>
+    </completion>
+    <completion string="break" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
+    <completion string="continue" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
+    <completion string="case" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[variable] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[variable]</append>
+      </behavior>
+      <behavior>
+        <append> $[variable] %}</append>
+      </behavior>
+    </completion>
+    <completion string="when" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[value] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[value]</append>
+      </behavior>
+      <behavior>
+        <append> $[value] %}</append>
+      </behavior>
+    </completion>
 
-	<!-- Keywords -->
-	<set name="liquid.keywords" symbol="keyword">
-		<completion string="not" />
-		<completion string="as" />
-		<completion string="in" />
-		<completion string="is" />
-		<completion string="with">
-			<behavior>
-				<append> $[variable] as $[alias]</append>
-			</behavior>
-		</completion>
-		<completion string="with">
-			<behavior>
-				<append> {$[variable]}</append>
-			</behavior>
-		</completion>
-	</set>
+    <!-- Variable tags -->
+    <completion string="assign" symbol="keyword.construct">
+      <behavior suffix="%}">
+        <append> $[variable] = $[value] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[variable] = $[value]</append>
+      </behavior>
+      <behavior>
+        <append> $[variable] = $[value] %}</append>
+      </behavior>
+    </completion>
+    <completion string="capture" symbol="keyword.construct">
+      <behavior suffix="%}">
+        <append> $[variable] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[variable]</append>
+      </behavior>
+      <behavior>
+        <append> $[variable] %}</append>
+      </behavior>
+    </completion>
+    <completion string="increment" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[variable] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[variable]</append>
+      </behavior>
+      <behavior>
+        <append> $[variable] %}</append>
+      </behavior>
+    </completion>
+    <completion string="decrement" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[variable] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[variable]</append>
+      </behavior>
+      <behavior>
+        <append> $[variable] %}</append>
+      </behavior>
+    </completion>
 
-	<!-- Tests -->
-	<set name="liquid.tests" symbol="keyword">
-		<completion string="blank" />
-		<completion string="empty" />
-		<completion string="nil" />
-		<completion string="null" />
-	</set>
+    <!--Template tags -->
+    <completion string="include" symbol="keyword.construct">
+      <behavior suffix="%}">
+        <append> '$[file]' </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> '$[file]'</append>
+      </behavior>
+      <behavior>
+        <append> '$[file]' %}</append>
+      </behavior>
+    </completion>
+    <completion string="include_relative" symbol="keyword.construct">
+      <behavior suffix="%}">
+        <append> '$[path/to/file]' </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> '$[path/to/file]'</append>
+      </behavior>
+      <behavior>
+        <append> '$[path/to/file]' %}</append>
+      </behavior>
+    </completion>
+    <completion string="render" symbol="keyword.construct">
+      <behavior suffix="%}">
+        <append> '$[snippet]' </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> '$[snippet]'</append>
+      </behavior>
+      <behavior>
+        <append> '$[snippet]' %}</append>
+      </behavior>
+    </completion>
+    <completion string="raw" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
+    <completion string="comment" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
 
-	<!-- Filters -->
-	<set name="liquid.filters" symbol="function">
-		<completion string="abs" />
-		<completion string="append">
-			<behavior>
-				<append>: $[content]</append>
-			</behavior>
-		</completion>
-		<completion string="at_least">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="at_most">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="capitalize" />
-		<completion string="ceil" />
-		<completion string="compact" />
-		<completion string="concat">
-			<behavior>
-				<append>: $[array]</append>
-			</behavior>
-		</completion>
-		<completion string="date">
-			<behavior>
-				<append>: "$[date format]"</append>
-			</behavior>
-		</completion>
-		<completion string="default">
-			<behavior>
-				<append>: $[value]</append>
-			</behavior>
-		</completion>
-		<completion string="divided_by">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="downcase" />
-		<completion string="escape" />
-		<completion string="escape_once" />
-		<completion string="first" />
-		<completion string="floor" />
-		<completion string="join">
-			<behavior>
-				<append>: $[operator]</append>
-			</behavior>
-		</completion>
-		<completion string="last" />
-		<completion string="lstrip" />
-		<completion string="map">
-			<behavior>
-				<append>: $[property]</append>
-			</behavior>
-		</completion>
-		<completion string="minus">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="modulo">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="newline_to_br" />
-		<completion string="plus">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="prepend">
-			<behavior>
-				<append>: $[content]</append>
-			</behavior>
-		</completion>
-		<completion string="remove">
-			<behavior>
-				<append>: "$[substring]"</append>
-			</behavior>
-		</completion>
-		<completion string="remove_first">
-			<behavior>
-				<append>: "$[substring]"</append>
-			</behavior>
-		</completion>
-		<completion string="replace">
-			<behavior>
-				<append>: "$[old string]", "$[new string]"</append>
-			</behavior>
-		</completion>
-		<completion string="replace_first">
-			<behavior>
-				<append>: "$[old string]", "$[new string]"</append>
-			</behavior>
-		</completion>
-		<completion string="reverse" />
-		<completion string="round" />
-		<completion string="round">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="rstring" />
-		<completion string="size" />
-		<completion string="slice">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="sort" />
-		<completion string="sort">
-			<behavior>
-				<append>: "$[param]"</append>
-			</behavior>
-		</completion>
-		<completion string="sort_natural" />
-		<completion string="sort_natural">
-			<behavior>
-				<append>: "$[param]"</append>
-			</behavior>
-		</completion>
-		<completion string="split">
-			<behavior>
-				<append>: "$[divider]"</append>
-			</behavior>
-		</completion>
-		<completion string="strip" />
-		<completion string="strip_html" />
-		<completion string="strip_newlines" />
-		<completion string="times">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="truncate">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="truncate">
-			<behavior>
-				<append>: $[number], "$[custom ellipsis]"</append>
-			</behavior>
-		</completion>
-		<completion string="truncatewords">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="truncatewords">
-			<behavior>
-				<append>: $[number], "$[custom ellipsis]"</append>
-			</behavior>
-		</completion>
-		<completion string="uniq" />
-		<completion string="upcase" />
-		<completion string="url_decode" />
-		<completion string="url_encode" />
-		<completion string="where">
-			<behavior>
-				<append>: "$[key]", "$[value]"</append>
-			</behavior>
-		</completion>
-		<completion string="where">
-			<behavior>
-				<append>: "$[truthy condition]"</append>
-			</behavior>
-		</completion>
-		<!-- Jekyll -->
-		<completion string="absolute_url" />
-		<completion string="relative_url" />
-		<completion string="date_to_xmlschema" />
-		<completion string="date_to_rfc822" />
-		<completion string="date_to_string" />
-		<completion string="date_to_string">
-			<behavior>
-				<append>: "$[style]", "$[country code]"</append>
-			</behavior>
-		</completion>
-		<completion string="date_to_long_string" />
-		<completion string="date_to_long_string">
-			<behavior>
-				<append>: "$[style]"</append>
-			</behavior>
-		</completion>
-		<completion string="where_exp">
-			<behavior>
-				<append>: "$[key]", "$[condition]"</append>
-			</behavior>
-		</completion>
-		<completion string="find">
-			<behavior>
-				<append>: "$[key]", "$[value]"</append>
-			</behavior>
-		</completion>
-		<completion string="find_exp">
-			<behavior>
-				<append>: "$[key]", "$[condition]"</append>
-			</behavior>
-		</completion>
-		<completion string="group_by">
-			<behavior>
-				<append>: "$[property]"</append>
-			</behavior>
-		</completion>
-		<completion string="group_by_exp">
-			<behavior>
-				<append>: "$[item]", "$[expression]"</append>
-			</behavior>
-		</completion>
-		<completion string="xml_schema" />
-		<completion string="cgi_schema" />
-		<completion string="uri_escape" />
-		<completion string="number_of_words" />
-		<completion string="number_of_words">
-			<behavior>
-				<append>: "$[method]"</append>
-			</behavior>
-		</completion>
-		<completion string="array_to_sentence_string" />
-		<completion string="array_to_sentence_string">
-			<behavior>
-				<append>: "$[connector]"</append>
-			</behavior>
-		</completion>
-		<completion string="markdownify" />
-		<completion string="smartify" />
-		<completion string="sassify" />
-		<completion string="scssify" />
-		<completion string="slugify" />
-		<completion string="slugify">
-			<behavior>
-				<append>: "$[method]"</append>
-			</behavior>
-		</completion>
-		<completion string="jsonify" />
-		<completion string="normalize_whitespace" />
-		<completion string="sample" />
-		<completion string="sample">
-			<behavior>
-				<append>: $[number]</append>
-			</behavior>
-		</completion>
-		<completion string="to_integer" />
-		<completion string="pop" />
-		<completion string="shift" />
-		<completion string="push">
-			<behavior>
-				<append>: "$[string]"</append>
-			</behavior>
-		</completion>
-		<completion string="unshift">
-			<behavior>
-				<append>: "$[string]"</append>
-			</behavior>
-		</completion>
-		<completion string="inspect" />
-	</set>
+    <!-- Jekyll Tags -->
+    <completion string="highlight" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[language] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[language]</append>
+      </behavior>
+      <behavior>
+        <append> $[language] %}</append>
+      </behavior>
+    </completion>
+    <completion string="link" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[path/to/file.md] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[path/to/file.md]</append>
+      </behavior>
+      <behavior>
+        <append> $[path/to/file.md] %}</append>
+      </behavior>
+    </completion>
+    <completion string="post_url" symbol="keyword">
+      <behavior suffix="%}">
+        <append> $[YYYY-MM-DD-post-slug] </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append> $[YYYY-MM-DD-post-slug]</append>
+      </behavior>
+      <behavior>
+        <append> $[YYYY-MM-DD-post-slug] %}</append>
+      </behavior>
+    </completion>
+    <completion string="seo" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
+    <completion string="feed_meta" symbol="keyword">
+      <behavior suffix="%}">
+        <append> </append>
+      </behavior>
+      <behavior suffix="(\s*%})">
+        <append></append>
+      </behavior>
+      <behavior>
+        <append> %}</append>
+      </behavior>
+    </completion>
+  </set>
+
+  <!-- Closing tags -->
+  <set name="liquid.end-tags">
+    <completion string="if" symbol="keyword">
+      <behavior>
+        <append>if %}</append>
+      </behavior>
+    </completion>
+    <completion string="for" symbol="keyword">
+      <behavior>
+        <append>for %}</append>
+      </behavior>
+    </completion>
+    <completion string="case" symbol="keyword">
+      <behavior>
+        <append>case %}</append>
+      </behavior>
+    </completion>
+    <completion string="unless" symbol="keyword">
+      <behavior>
+        <append>unless %}</append>
+      </behavior>
+    </completion>
+    <completion string="capture" symbol="keyword">
+      <behavior>
+        <append>capture %}</append>
+      </behavior>
+    </completion>
+    <completion string="raw" symbol="keyword">
+      <behavior>
+        <append>raw %}</append>
+      </behavior>
+    </completion>
+    <completion string="comment" symbol="keyword">
+      <behavior>
+        <append>comment %}</append>
+      </behavior>
+    </completion>
+    <completion string="highlight" symbol="keyword">
+      <behavior>
+        <append>highlight %}</append>
+      </behavior>
+    </completion>
+  </set>
 </completions>

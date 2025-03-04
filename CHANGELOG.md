@@ -36,6 +36,13 @@ Please, help me make this new major version better by filing bugs and giving fee
 - **Updates tree-sitter dylib**  
   Following latest release by @hankthetank27.
 
+### Version 2.0.3
+
+**New:**
+
+- **Front-matter**  
+  Added support for front-matter on HTML and Markdown files.
+
 ***
 
 ## Version 1.2
