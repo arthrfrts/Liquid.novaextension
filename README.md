@@ -11,9 +11,8 @@ This extension adds supports for:
 - Liquid tags and filters
 - Some Jekyll-specific filters
 - Liquid detectors for HTML and Markdown files
+- Completions with tree-sitter providers
 - Both Tree-sitter and Regex languages, for Novas both new and old!
-
-Completions are in the works for the future, stay tuned!
 
 ## Thanks!
 
