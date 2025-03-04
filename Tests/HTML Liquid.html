@@ -15,7 +15,7 @@
 		{% json_feed_meta %}
   </head>
   <body>
-		<div class="hug">
+		<div class="hug" data-liquid="{{ value.object | strip: "" }}">
 	  	<header class="site-header">
 				{% if page.title %}
 		  		<h3 class="site-title">

@@ -13,6 +13,15 @@ Also, some bugs were fixed --- mostly under the hood (like variables being consi
 
 Please, help me make this new major version better by filing bugs and giving feedback on [GitHub](https://github.com/arthrfrts/Liquid.novaextension). Thanks!
 
+### Version 2.1
+
+**New:**
+
+- **Completions!**  
+  I finally managed to add completions with tree-sitter support back to the language. 🎉
+- **Front-matter**  
+  Adds support for front-matter in HTML and Markdown files.
+
 ### Version 2.0.1
 
 **New:**
@@ -35,13 +44,6 @@ Please, help me make this new major version better by filing bugs and giving fee
   Added support for Jekyll `{% include_relative %}` tag.
 - **Updates tree-sitter dylib**  
   Following latest release by @hankthetank27.
-
-### Version 2.0.3
-
-**New:**
-
-- **Front-matter**  
-  Added support for front-matter on HTML and Markdown files.
 
 ***
 
