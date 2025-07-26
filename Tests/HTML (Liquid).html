@@ -137,8 +137,7 @@
           <!-- Advanced data manipulation with capture and assign -->
           {% capture page_word_count %}{{ content | number_of_words }}{% endcapture %}
           {% assign reading_time = page_word_count | divided_by: 200 | plus: 1 %}
-          {% assign reading_time_num = reading_time | plus: 0 %}
-          {% if reading_time_num > 1 %}
+          {% if reading_time > 1 %}
             <div class="reading-time">
               Estimated reading time: {{ reading_time }} minutes
             </div>
@@ -149,7 +148,7 @@
             <section class="testimonials">
               <h3>What Our Customers Say</h3>
               {% for testimonial in site.data.testimonials %}
-                {% if testimonial.featured or forloop.index0 < 3 %}
+                {% if testimonial.featured or forloop.index <= 3 %}
                   <blockquote class="testimonial {% if testimonial.featured %}featured{% endif %}">
                     <p>{{ testimonial.quote | markdownify }}</p>
                     <cite>
@@ -159,9 +158,8 @@
                       {% endif %}
                       {% if testimonial.rating %}
                         <span class="rating">
-                          {% assign rating_num = testimonial.rating | plus: 0 %}
                           {% for i in (1..5) %}
-                            {% if i <= rating_num %}★{% else %}☆{% endif %}
+                            {% if i <= testimonial.rating %}★{% else %}☆{% endif %}
                           {% endfor %}
                         </span>
                       {% endif %}
