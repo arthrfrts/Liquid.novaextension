@@ -521,7 +521,7 @@
         <append> "$[file path]" with $[variable]</append>
       </behavior>
       <behavior>
-        <append> "$[file path" with $[variable] %}</append>
+        <append> "$[file path]" with $[variable] %}</append>
       </behavior>
     </completion>
     <completion string="render">
