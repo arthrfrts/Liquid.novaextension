@@ -13,7 +13,7 @@
       <match-content lines="100">\{\%</match-content>
     </combo>
     <combo priority="0.9">
-    <extension>css</extension>
+      <extension>css</extension>
       <match-content lines="100">\{\{</match-content>
     </combo>
   </detectors>
