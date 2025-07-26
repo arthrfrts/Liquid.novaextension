@@ -21,7 +21,7 @@
     </style>
   </head>
   <body>
-	<div class="hug" data-liquid="{{ value.object | strip: "" }}">
+	<div class="hug" data-liquid="{{ value.object | strip }}">
         <header class="site-header">
           {% if page.title %}
             <h3 class="site-title">
@@ -79,7 +79,7 @@
             {% when 'article' %}
               <article class="content-article">
                 {{ content }}
-                {% if page.tags.size > 0 %}
+                {% if page.tags and page.tags != empty %}
                   <div class="tags">
                     {% for tag in page.tags %}
                       <span class="tag">{{ tag | slugify }}</span>
@@ -119,7 +119,7 @@
 
           <!-- Complex loop with filtering and sorting -->
           {% assign related_posts = site.posts | where_exp: "post", "post.categories contains page.primary_category" | sort: "date" | reverse | limit: 3 %}
-          {% if related_posts.size > 0 %}
+          {% if related_posts and related_posts != empty %}
             <section class="related-posts">
               <h3>Related Posts</h3>
               {% for post in related_posts %}
@@ -137,7 +137,8 @@
           <!-- Advanced data manipulation with capture and assign -->
           {% capture page_word_count %}{{ content | number_of_words }}{% endcapture %}
           {% assign reading_time = page_word_count | divided_by: 200 | plus: 1 %}
-          {% if reading_time > 1 %}
+          {% assign reading_time_num = reading_time | plus: 0 %}
+          {% if reading_time_num > 1 %}
             <div class="reading-time">
               Estimated reading time: {{ reading_time }} minutes
             </div>
@@ -148,7 +149,7 @@
             <section class="testimonials">
               <h3>What Our Customers Say</h3>
               {% for testimonial in site.data.testimonials %}
-                {% if testimonial.featured or forloop.index <= 3 %}
+                {% if testimonial.featured or forloop.index0 < 3 %}
                   <blockquote class="testimonial {% if testimonial.featured %}featured{% endif %}">
                     <p>{{ testimonial.quote | markdownify }}</p>
                     <cite>
@@ -158,8 +159,9 @@
                       {% endif %}
                       {% if testimonial.rating %}
                         <span class="rating">
+                          {% assign rating_num = testimonial.rating | plus: 0 %}
                           {% for i in (1..5) %}
-                            {% if i <= testimonial.rating %}★{% else %}☆{% endif %}
+                            {% if i <= rating_num %}★{% else %}☆{% endif %}
                           {% endfor %}
                         </span>
                       {% endif %}
