@@ -13,6 +13,19 @@ Also, some bugs were fixed --- mostly under the hood (like variables being consi
 
 Please, help me make this new major version better by filing bugs and giving feedback on [GitHub](https://github.com/arthrfrts/Liquid.novaextension). Thanks!
 
+## Version 2.2
+
+**New:**
+
+- **New subsyntaxes**  
+  Thanks to @hello-jeff who managed to add subsyntaxes for Liquid in CSS, SCSS, JavaScript and JSON files!
+- **Better completions**  
+  Removed the v2.0 scripts and brought back our classic completions (with some new additions)
+
+**Updates:**
+
+- Updated the Liquid grammar by @hankthetank27 with some bug fixes.
+
 ### Version 2.1
 
 **New:**
@@ -41,7 +54,7 @@ Please, help me make this new major version better by filing bugs and giving fee
 **New:**
 
 - **New tags**  
-  Added support for Jekyll `{% include_relative %}` tag.
+  Added support for Jekyll `include_relative` tag.
 - **Updates tree-sitter dylib**  
   Following latest release by @hankthetank27.
 

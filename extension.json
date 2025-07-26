@@ -3,7 +3,7 @@
   "name": "Liquid",
   "organization": "arthr",
   "description": "Syntax highlighting for Liquid template files.",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "license": "MIT",
   "bugs": "https://github.com/arthrfrts/Liquid.novaextension/issues",
   "repository": "https://github.com/arthrfrts/Liquid.novaextension",
@@ -26,6 +26,8 @@
     "onLanguage:html",
     "onLanguage:css",
     "onLanguage:scss",
+    "onLanguage:json",
+    "onLanguage:js",
     "onLanguage:markdown"
   ]
 }
