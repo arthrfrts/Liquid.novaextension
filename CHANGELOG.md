@@ -13,7 +13,7 @@ Also, some bugs were fixed --- mostly under the hood (like variables being consi
 
 Please, help me make this new major version better by filing bugs and giving feedback on [GitHub](https://github.com/arthrfrts/Liquid.novaextension). Thanks!
 
-## Version 2.2
+### Version 2.2
 
 **New:**
 
