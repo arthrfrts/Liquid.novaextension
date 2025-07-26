@@ -137,18 +137,24 @@
           <!-- Advanced data manipulation with capture and assign -->
           {% capture page_word_count %}{{ content | number_of_words }}{% endcapture %}
           {% assign reading_time = page_word_count | divided_by: 200 | plus: 1 %}
-          {% if reading_time > 1 %}
+          {% unless reading_time == 1 %}
             <div class="reading-time">
               Estimated reading time: {{ reading_time }} minutes
             </div>
-          {% endif %}
+          {% endunless %}
 
           <!-- Nested loops with complex conditions -->
           {% if site.data.testimonials %}
             <section class="testimonials">
               <h3>What Our Customers Say</h3>
               {% for testimonial in site.data.testimonials %}
-                {% if testimonial.featured or forloop.index <= 3 %}
+                {% assign show_testimonial = false %}
+                {% if testimonial.featured %}
+                  {% assign show_testimonial = true %}
+                {% elsif forloop.index <= 3 %}
+                  {% assign show_testimonial = true %}
+                {% endif %}
+                {% if show_testimonial %}
                   <blockquote class="testimonial {% if testimonial.featured %}featured{% endif %}">
                     <p>{{ testimonial.quote | markdownify }}</p>
                     <cite>
@@ -158,8 +164,13 @@
                       {% endif %}
                       {% if testimonial.rating %}
                         <span class="rating">
+                          {% assign rating = testimonial.rating | default: 0 %}
                           {% for i in (1..5) %}
-                            {% if i <= testimonial.rating %}★{% else %}☆{% endif %}
+                            {% assign star_filled = false %}
+                            {% if rating >= i %}
+                              {% assign star_filled = true %}
+                            {% endif %}
+                            {% if star_filled %}★{% else %}☆{% endif %}
                           {% endfor %}
                         </span>
                       {% endif %}
