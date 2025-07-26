@@ -633,7 +633,7 @@
         {% endform %]]></append>
       </behavior>
       <behavior suffix="%\}">
-        <append><![CDATA[$[form_type] %}
+        <append><![CDATA[ $[form_type] %}
           $[content]
         {% endform ]]></append>
       </behavior>
