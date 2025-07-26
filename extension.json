@@ -8,7 +8,6 @@
   "bugs": "https://github.com/arthrfrts/Liquid.novaextension/issues",
   "repository": "https://github.com/arthrfrts/Liquid.novaextension",
   "funding": "https://github.com/sponsors/arthrfrts",
-  "main": "main.js",
   "keywords": [
     "liquid",
     "jekyll",
